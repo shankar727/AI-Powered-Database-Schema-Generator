@@ -1,42 +1,56 @@
-🚀 AI-Powered Database Schema Generator
+# 🚀 AI-Powered Database Schema Generator
+
 An intelligent web application that generates complete database schemas (MySQL & PostgreSQL) from plain English descriptions using LLM (Ollama + Gemma3).
-📌 Features
-🧠 AI-based Schema Generation from text description
-🗄️ Supports MySQL & PostgreSQL
-🔗Automatically generates:  
-Tables
-Fields
-Relationships
 
-📊 ER Diagram (Mermaid.js) visualization
+---
 
-⚡ Direct database deployment (execute queries)
+## 📌 Features
 
-🔄 Automatic Ollama server management
+* 🧠 AI-based Schema Generation from text description
 
-🛠️ Tech Stack
+* 🗄️ Supports MySQL & PostgreSQL
 
-Backend: Flask (Python)
+* 🔗 Automatically generates:
 
-LLM: Ollama (Gemma3:4b)
+  * Tables
+  * Fields
+  * Relationships
 
-Database: MySQL, PostgreSQL
+* 📊 ER Diagram (Mermaid.js) visualization
 
-Libraries:
+* ⚡ Direct database deployment (execute queries)
 
-LangChain
+* 🔄 Automatic Ollama server management
 
-psycopg2
+---
 
-mysql-connector
+## 🛠️ Tech Stack
 
-requests
+* **Backend:** Flask (Python)
+* **LLM:** Ollama (Gemma3:4b)
+* **Database:** MySQL, PostgreSQL
 
-Frontend: HTML (Jinja templates)
+**Libraries:**
 
-Visualization: Mermaid.js
+* LangChain
 
-📂 Project Structure
+* psycopg2
+
+* mysql-connector
+
+* requests
+
+* **Frontend:** HTML (Jinja templates)
+
+* **Visualization:** Mermaid.js
+
+---
+
+## 📂 Project Structure
+
+```
+AI-Powered-Database-Schema-Generator/
+│
 ├── app.py
 ├── templates/
 │   ├── index.html
@@ -45,95 +59,172 @@ Visualization: Mermaid.js
 │   └── ollama_setup.html
 ├── static/
 └── README.md
-⚙️ Installation & Setup
-1️⃣ Clone the repository
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```bash
 git clone https://github.com/your-username/AI-Powered-Database-Schema-Generator.git
 cd AI-Powered-Database-Schema-Generator
-2️⃣ Install dependencies
+```
+
+### 2️⃣ Install dependencies
+
+```bash
 pip install -r requirements.txt
-3️⃣ Install Ollama
+```
+
+### 3️⃣ Install Ollama
 
 Download from: https://ollama.com/
 
 Then pull the model:
 
+```bash
 ollama pull gemma3:4b
-4️⃣ Run the application
+```
+
+### 4️⃣ Run the application
+
+```bash
 python app.py
+```
 
 App will start at:
 
+```
 http://127.0.0.1:5000
-🧠 How It Works
+```
 
-User enters application description
-Prompt sent to LLM (Gemma3 via Ollama)
-Model generates:
-JSON schema
-MySQL queries
-PostgreSQL queries
-App:
-Parses JSON
-Displays schema
-Generates ER diagram
-User can:
-Deploy schema directly to DB
+---
 
-📊 Example Input
+## 🧠 How It Works
+
+1. User enters application description
+
+2. Prompt sent to LLM (Gemma3 via Ollama)
+
+3. Model generates:
+
+   * JSON schema
+   * MySQL queries
+   * PostgreSQL queries
+
+4. App:
+
+   * Parses JSON
+   * Displays schema
+   * Generates ER diagram
+
+5. User can:
+
+   * Deploy schema directly to DB
+
+---
+
+## 📊 Example Input
+
+```
 E-commerce app with users, products, orders, and payments
-Output:
+```
 
-Tables: Users, Products, Orders, Payments
+### Output
 
-Relationships:
+* Tables: Users, Products, Orders, Payments
+* Relationships:
 
-User → Orders (1:N)
+  * User → Orders (1:N)
+  * Order → Products (M:N)
 
-Order → Products (M:N)
+---
 
-🔌 Database Configuration
-MySQL
-Host
-Username
-Password
-Database
-PostgreSQL
-Host
-Username
-Password
-Database
-Port
+## 🔌 Database Configuration
 
-🚀 Key Functionalities
-✅ Schema Generation
+### MySQL
+
+* Host
+* Username
+* Password
+* Database
+
+### PostgreSQL
+
+* Host
+* Username
+* Password
+* Database
+* Port
+
+---
+
+## 🚀 Key Functionalities
+
+### ✅ Schema Generation
+
+```python
 generate_schema(description)
-✅ JSON Extraction
+```
+
+### ✅ JSON Extraction
+
+```python
 extract_json_from_response(response)
-✅ ER Diagram
+```
+
+### ✅ ER Diagram
+
+```python
 create_mermaid_diagram(schema)
-✅ Database Execution
+```
+
+### ✅ Database Execution
+
+```python
 execute_mysql_queries(queries)
 execute_postgres_queries(queries)
-⚠️ Important Notes
+```
 
-Ensure Ollama is installed and running
-Change secret_key before production
-Validate DB credentials before deployment
-AI output may need manual review for complex systems
-🧩 Future Improvements
-🌐 Add MongoDB support
-🎨 Improve UI/UX
-🔐 Authentication system
-📥 Export schema as SQL file
-☁️ Deploy on cloud (AWS/GCP)
-🤝 Contributing
-Fork the repo
-Create your feature branch
-Commit changes
-Push to branch
-Open Pull Request
-📜 License
+---
+
+## ⚠️ Important Notes
+
+* Ensure Ollama is installed and running
+* Change `secret_key` before production
+* Validate DB credentials before deployment
+* AI output may need manual review for complex systems
+
+---
+
+## 🧩 Future Improvements
+
+* 🌐 Add MongoDB support
+* 🎨 Improve UI/UX
+* 🔐 Authentication system
+* 📥 Export schema as SQL file
+* ☁️ Deploy on cloud (AWS/GCP)
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repo
+2. Create your feature branch
+3. Commit changes
+4. Push to branch
+5. Open Pull Request
+
+---
+
+## 📜 License
+
 This project is licensed under the MIT License.
-👨‍💻 Author
 
-Shankar Kumar Yadav
+---
+
+## 👨‍💻 Author
+
+**Shankar Kumar Yadav**
