@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Connection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-switch .form-check-input {
+            width: 3em;
+            height: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Database Connection Setup</h1>
+        
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        
+        {% if success %}
+        <div class="alert alert-success">{{ success }}</div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Database Type</label>
+                <select name="db_type" class="form-select" id="db-type-select">
+                    <option value="MySQL">MySQL</option>
+                    <option value="PostgreSQL">PostgreSQL</option>
+                </select>
+            </div>
+            
+            <div id="mysql-fields">
+                <div class="mb-3">
+                    <label class="form-label">MySQL Host</label>
+                    <input type="text" name="mysql_host" class="form-control" value="{{ session.get('mysql_host', 'localhost') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">MySQL Username</label>
+                    <input type="text" name="mysql_user" class="form-control" value="{{ session.get('mysql_user', 'root') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">MySQL Password</label>
+                    <input type="password" name="mysql_password" class="form-control" value="{{ session.get('mysql_password', '') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">MySQL Database Name</label>
+                    <input type="text" name="mysql_database" class="form-control" value="{{ session.get('mysql_database', 'my_database') }}">
+                </div>
+            </div>
+            
+            <div id="postgres-fields" style="display:none;">
+                <div class="mb-3">
+                    <label class="form-label">PostgreSQL Host</label>
+                    <input type="text" name="postgres_host" class="form-control" value="{{ session.get('postgres_host', 'localhost') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PostgreSQL Username</label>
+                    <input type="text" name="postgres_user" class="form-control" value="{{ session.get('postgres_user', 'postgres') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PostgreSQL Password</label>
+                    <input type="password" name="postgres_password" class="form-control" value="{{ session.get('postgres_password', '') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PostgreSQL Database Name</label>
+                    <input type="text" name="postgres_database" class="form-control" value="{{ session.get('postgres_database', 'postgres') }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PostgreSQL Port</label>
+                    <input type="text" name="postgres_port" class="form-control" value="{{ session.get('postgres_port', '5432') }}">
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" name="test_connection" class="btn btn-primary">
+                    <i class="bi bi-plug"></i> Test Connection
+                </button>
+                <button type="submit" name="next_page" class="btn btn-success">
+                    Continue to Schema Design <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById('db-type-select').addEventListener('change', function() {
+            if (this.value === 'MySQL') {
+                document.getElementById('mysql-fields').style.display = 'block';
+                document.getElementById('postgres-fields').style.display = 'none';
+            } else {
+                document.getElementById('mysql-fields').style.display = 'none';
+                document.getElementById('postgres-fields').style.display = 'block';
+            }
+        });
+        
+        // Initialize on page load
+        if (document.getElementById('db-type-select').value === 'MySQL') {
+            document.getElementById('mysql-fields').style.display = 'block';
+        } else {
+            document.getElementById('postgres-fields').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

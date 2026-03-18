@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ollama Setup Required</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-danger">
+            <h2>Ollama Setup Required</h2>
+            <ol>
+                <li><strong>Install Ollama</strong>:
+                    <ul>
+                        <li>Windows: Download from <a href="https://ollama.com">ollama.com</a></li>
+                        <li>Mac/Linux: Run <code>curl -fsSL https://ollama.com/install.sh | sh</code></li>
+                    </ul>
+                </li>
+                <li><strong>Start Ollama</strong> in a separate terminal:
+                    <pre><code>ollama serve</code></pre>
+                    (Keep this terminal open)
+                </li>
+                <li><strong>Download the model</strong>:
+                    <pre><code>ollama pull mistral</code></pre>
+                </li>
+                <li><strong>Refresh this page</strong> after setup</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

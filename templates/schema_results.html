@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schema Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        .mermaid {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Generated Database Schema</h1>
+        
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        
+        {% if success %}
+        <div class="alert alert-success">{{ success }}</div>
+        {% endif %}
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-info-circle"></i> Schema Explanation
+            </div>
+            <div class="card-body">
+                <p class="lead">{{ schema.get('explanation', 'No explanation provided') }}</p>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-diagram-3"></i> ER Diagram
+            </div>
+            <div class="card-body">
+                <div class="mermaid">
+                    {{ mermaid_code }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4 h-100">
+                    <div class="card-header bg-primary text-white position-relative">
+                        <i class="bi bi-database"></i> MySQL Schema
+                        <button class="btn btn-sm btn-light copy-btn" onclick="copyToClipboard('mysql-code')">
+                            <i class="bi bi-clipboard"></i> Copy
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        {% if schema.get('mysql_code') %}
+                        <pre id="mysql-code"><code class="language-sql">{{ schema['mysql_code'] }}</code></pre>
+                        {% else %}
+                        <div class="alert alert-warning">No MySQL schema generated</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card mb-4 h-100">
+                    <div class="card-header bg-primary text-white position-relative">
+                        <i class="bi bi-database"></i> PostgreSQL Schema
+                        <button class="btn btn-sm btn-light copy-btn" onclick="copyToClipboard('postgres-code')">
+                            <i class="bi bi-clipboard"></i> Copy
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        {% if schema.get('postgres_code') %}
+                        <pre id="postgres-code"><code class="language-sql">{{ schema['postgres_code'] }}</code></pre>
+                        {% else %}
+                        <div class="alert alert-warning">No PostgreSQL schema generated</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-cloud-upload"></i> Deploy to Database
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-start gap-2">
+                    {% if schema.get('mysql_code') %}
+                    <form method="POST">
+                        <button type="submit" name="deploy_mysql" class="btn btn-primary">
+                            <i class="bi bi-database-add"></i> Deploy to MySQL
+                        </button>
+                    </form>
+                    {% endif %}
+                    
+                    {% if schema.get('postgres_code') %}
+                    <form method="POST">
+                        <button type="submit" name="deploy_postgres" class="btn btn-primary">
+                            <i class="bi bi-database-add"></i> Deploy to PostgreSQL
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            er: {
+                layoutDirection: 'TB',
+                diagramPadding: 15,
+                nodeSpacing: 100,
+                rankSpacing: 100
+            }
+        });
+        
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const range = document.createRange();
+            range.selectNode(element);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Show temporary feedback
+            const originalText = event.target.innerHTML;
+            event.target.innerHTML = '<i class="bi bi-check"></i> Copied!';
+            setTimeout(() => {
+                event.target.innerHTML = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
