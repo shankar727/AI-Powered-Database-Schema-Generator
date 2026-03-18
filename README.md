@@ -3,7 +3,7 @@ An intelligent web application that generates complete database schemas (MySQL &
 📌 Features
 🧠 AI-based Schema Generation from text description
 🗄️ Supports MySQL & PostgreSQL
-🔗Automatically generates:
+🔗Automatically generates:  
 Tables
 Fields
 Relationships
